@@ -35,5 +35,3 @@ class HuffmanDecompressor:
                 encoded_text = self.remove_padding(bit_string)
                 decoded_text = self.decode_text(encoded_text)
                 output.write(decoded_text)
-
-        print(f"Decompressed and written to {output_file}")
