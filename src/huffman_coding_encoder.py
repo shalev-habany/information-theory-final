@@ -70,28 +70,15 @@ class HuffmanCompressor:
     def compress_file(self, input_file, output_file):
         with open(input_file, 'r') as file:
             input_string = file.read()
-
-        # Step 1: Build the frequency table using the entire file
         frequency = self.frequency_table(input_string)
-
-        # Step 2: Build the Huffman Tree and generate Huffman codes
         self.build_heap(frequency)
         self.build_tree()
         self.generate_codes()
-
-        # Step 3: Compress in chunks
         with open(output_file, 'wb') as output:
             for i in range(0, len(input_string), self.chunk_size):
                 chunk = input_string[i:i + self.chunk_size]
-
-                # Encode the chunk
                 encoded_text = self.get_encoded_text(chunk)
-
-                # Pad and convert to byte array
                 padded_encoded_text = self.pad_encoded_text(encoded_text)
                 byte_array = self.get_byte_array(padded_encoded_text)
-
-                # Write chunk to file
                 output.write(bytes(byte_array))
-
         print(f"Compressed and written to {output_file}")
